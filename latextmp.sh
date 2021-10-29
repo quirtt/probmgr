@@ -48,6 +48,7 @@ then
     mkdir $HOME/Documents/OTIS/texfiles/$name
     touch $HOME/Documents/OTIS/texfiles/$name/$name.tex
     cd $HOME/Documents/OTIS/texfiles/$name
+    bash $HOME/Projects/probmgr/latextmp.sh open $name.tex
   fi
 else
   echo "Only open, clean modes exist."
