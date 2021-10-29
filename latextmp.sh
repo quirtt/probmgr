@@ -8,6 +8,7 @@
 mode=$1
 texname=$2
 name=${texname%.tex}
+group=$HOME/Projects/probmgr/group.sh
 
 if [ $mode = "open" ];
 then
@@ -50,6 +51,15 @@ then
     cd $HOME/Documents/OTIS/texfiles/$name
     bash $HOME/Projects/probmgr/latextmp.sh open $name.tex
   fi
+# implementing grouping texfiles into handout!
+elif [ $mode = "group" ];
+then
+ # eventually have to take the grouping info from some text file and then input all the solutions in the text file into the src
+ # some text file = FILE3
+ # example: latextmp group groupfile src
+ FILE3=$2
+ read -p "source file: " src
+ bash $group $(cat $FILE3) $src
 else
-  echo "Only open, clean modes exist."
+  echo "Only open, clean, new, group modes exist."
 fi
