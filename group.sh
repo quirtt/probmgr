@@ -7,7 +7,7 @@
 ##
 
 # If using separately then 
-# example command: group.sh 19USATST07.tex 5 3 equality-dcw.tex
+# example command: group.sh 19USATST07 5 3 equality-dcw.tex
 # where it is a 5 pointer and problem number 3rd
 
 # input without .tex
