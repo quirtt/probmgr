@@ -1,28 +1,26 @@
 #!/bin/bash
-#temporary file to code group.sh
+# Support file for group mode of latextmp.sh
 
-# need a input file and a file to put it into
-# remove first [14] lines and the last line from the inputfile and then pipe it to srcfile 
-# v1: srcfile in the same directory and then copy it to the main directory?
+## IMPORTANT
+# problem files should follow /group/prob_TMPL.tex 
+# source files should follow /group/group_TMPL.tex
+##
 
-
-# have to remove the last line from src cuz the last line is "\end{Document}"
-# refer to group/group_TMPL.tex for template of srcfile AFTER REMOVE THE LAST LINE
-
-
-
-#example command: group.sh 19USATST07.tex 5 3 equality-dcw.tex
+# If using separately then 
+# example command: group.sh 19USATST07.tex 5 3 equality-dcw.tex
 # where it is a 5 pointer and problem number 3rd
-# input without .tex for "easyness"
+
+# input without .tex
+
 inputname=$1
 points=$2
 prbnum=$3
 src=$4
 
-#remove last line from srcfile
+#remove last line from src
 sed -i -e :a -e '$d;N;2,1ba' -e 'P;D' $src
 
-# add \otisproblem wtv
+# add \otisproblem{Points}{Problem Number}{Name} in src
 echo "\otisproblem{$points}{$prbnum}{$inputname}" >> $src
 
 #command to remove first 14 lines and the last line and piping it to src

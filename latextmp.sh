@@ -1,9 +1,6 @@
 #!/bin/bash
 
-# use script only in $HOME/Documents/OTIS/texfiles/{Whichever Problem You Are Solving}
-# Example command would be 
-# latextmp open 13SLA4.tex 
-# in $HOME/Documents/OTIS/texfiles/13SLA4
+# Having $HOME/Documents/OTIS/texfiles directory is mandatory.
 
 mode=$1
 texname=$2
@@ -12,6 +9,9 @@ group=$HOME/Projects/probmgr/group.sh
 
 if [ $mode = "open" ];
 then
+# Example command would be 
+# latextmp open 13SLA4.tex 
+# in $HOME/Documents/OTIS/texfiles/13SLA4
   mkdir /tmp/latex/
   mkdir /tmp/latex/$name/
   FILE=/tmp/latex/$name/$name.tex
@@ -51,12 +51,10 @@ then
     cd $HOME/Documents/OTIS/texfiles/$name
     bash $HOME/Projects/probmgr/latextmp.sh open $name.tex
   fi
-# implementing grouping texfiles into handout!
+# grouping texfiles into handout!
 elif [ $mode = "group" ];
 then
- # eventually have to take the grouping info from some text file and then input all the solutions in the text file into the src
- # some text file = FILE3
- # example: latextmp group groupfile src
+ # example: latextmp group group.txt dnw-vp.tex
  FILE3=$2
  read -p "source file: " src
  while [ -s $FILE3 ];
