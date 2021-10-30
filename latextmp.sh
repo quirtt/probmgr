@@ -59,7 +59,11 @@ then
  # example: latextmp group groupfile src
  FILE3=$2
  read -p "source file: " src
- bash $group $(cat $FILE3) $src
+ while [ -s $FILE3 ];
+ do
+   bash $group $(sed 1q $FILE3) $src
+   sed -i '1d' $FILE3
+ done
 else
   echo "Only open, clean, new, group modes exist."
 fi

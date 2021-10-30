@@ -26,7 +26,8 @@ sed -i -e :a -e '$d;N;2,1ba' -e 'P;D' $src
 echo "\otisproblem{$points}{$prbnum}{$inputname}" >> $src
 
 #command to remove first 14 lines and the last line and piping it to src
-  sed -e :a -e '1,14d;$d;N;2,1ba' -e 'P;D' $inputname.tex >> $src 
+sed -e :a -e '1,14d;$d;N;2,1ba' -e 'P;D' $OTIS/texfiles/$inputname/$inputname.tex >> $src 
 
 # add last line in srcfile
-echo "\end{document}" >> $src
+echo "
+\end{document}" >> $src
