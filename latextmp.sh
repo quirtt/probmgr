@@ -36,7 +36,7 @@ then
     rm -rf /tmp/latex/$name
     echo "Cleaned..."
   else
-  echo "Think again."
+    echo "Think again."
   fi
 elif [ $mode = "new" ];
 then
@@ -62,6 +62,36 @@ then
    bash $group $(sed 1q $FILE3) $src
    sed -i '1d' $FILE3
  done
+elif [ $mode = "mark" ];
+then
+  # example: latextmp mark 13TSTST8 "nt,vp,primitive roots"
+  FILE4=$HOME/Documents/OTIS/texfiles/cmpl.txt
+  FILE5=$HOME/Documents/OTIS/texfiles/$name/$name.info
+  if [ -f "$FILE5" ];
+  then
+    cat $FILE5
+    read -p "comments/tag: " cmnts
+    read -p "append(1) or new(2)? " choice
+    if [ $choice = "1" ];
+    then
+      sed -i '${s/$/'"${cmnts}"'/}' $FILE5
+      cat $FILE5
+    elif [ $choice = "2" ];
+    then
+      echo "$cmnts" > $FILE5
+      cat $FILE5
+    else
+      echo "Only append(1) and new(2) exists."
+    fi
+  else
+    read -p "comments/tag: " cmnts
+    touch $FILE5
+    echo "$cmnts" > $FILE5 
+  fi
+elif [ $mode = "show" ];
+then
+  DRCT=$HOME/Documents/OTIS/texfiles/
+  tree $DRCT | grep ".info"
 else
-  echo "Only open, clean, new, group modes exist."
+  echo "This is not a valid mode."
 fi
