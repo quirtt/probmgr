@@ -14,17 +14,24 @@ then
 # in $HOME/Documents/OTIS/texfiles/13SLA4
   mkdir /tmp/latex/
   mkdir /tmp/latex/$name/
+  CURR=./
   FILE=/tmp/latex/$name/$name.tex
   if [ -f "$FILE" ];
   then
     echo "$FILE exists."
   else
-    cp $name.tex /tmp/latex/$name/$name.tex
+    if [ -f "$HOME/Documents/OTIS/texfiles/$name/$name.tex" ];
+    then
+      cp $HOME/Documents/OTIS/texfiles/$name/$name.tex $FILE 
+      cd /tmp/latex/$name/
+      terminator --command="lvim "$FILE"" & disown 
+      latexmk -pvc -pdf -f -interaction=nonstopmode $name.tex 1> /dev/null
+      cd $CURR
+     else
+      echo ""$HOME/Documents/OTIS/texfiles/$name/$name.tex" doesnt exist." 
+   fi
   fi
-  cd /tmp/latex/$name/
-  subl /tmp/latex/$name/$name.tex 
-  latexmk -pvc -pdf -interaction=nonstopmode $name.tex 1> /dev/null
-  cd $HOME/Documents/OTIS/texfiles/$name
+
 elif [ $mode = "clean" ];
 then
   read -p "Are you sure you wanna delete? [y/N] " delete
@@ -87,6 +94,7 @@ then
     read -p "comments/tag: " cmnts
     touch $FILE5
     echo "$cmnts" > $FILE5 
+    cat $FILE5
   fi
 elif [ $mode = "show" ];
 then
