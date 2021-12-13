@@ -1,11 +1,18 @@
-#!/bin/bash
+#!/bin/zsh
 
 # Having $HOME/Documents/OTIS/texfiles directory is mandatory.
 
 mode=$1
 texname=$2
 name=${texname%.tex}
+OTIS=$HOME/Documents/OTIS/
 group=$HOME/Projects/probmgr/group.sh
+
+# COLOURS
+YELLOW="\033[1;33m"
+CYAN="\033[1;36m"
+GREEN="\033[1;32m"
+NOCOLOR="\033[0m"
 
 if [ $mode = "open" ];
 then
@@ -24,7 +31,7 @@ then
     then
       cp $HOME/Documents/OTIS/texfiles/$name/$name.tex $FILE 
       cd /tmp/latex/$name/
-      terminator --command="lvim "$FILE"" & disown 
+      terminator --command="zsh -c '$HOME/.local/bin/lvim "$FILE"; zsh -i'" & disown
       latexmk -pvc -pdf -f -interaction=nonstopmode $name.tex 1> /dev/null
       cd $CURR
      else
@@ -99,7 +106,15 @@ then
 elif [ $mode = "show" ];
 then
   DRCT=$HOME/Documents/OTIS/texfiles/
-  tree $DRCT | grep ".info"
+  for i in  $(ls -Rrt $DRCT | grep .info)
+  do
+    p=${i%.info}
+    mod=$(date -r $OTIS/texfiles/$p/$p.info +%s)
+    now=$(date +%s)          
+    days=$(expr \( $now - $mod \) / 86400)
+    echo -e "${YELLOW}$p${NOCOLOR} : ${CYAN}$(cat $OTIS/texfiles/$p/$p.info)${NOCOLOR}   ${GREEN}[$days days ago.]${NOCOLOR}"
+    
+  done
 else
   echo "This is not a valid mode."
 fi
