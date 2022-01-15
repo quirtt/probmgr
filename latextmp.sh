@@ -26,6 +26,10 @@ then
   if [ -f "$FILE" ];
   then
     echo "$FILE exists."
+    cd /tmp/latex/$name/
+    terminator --command="zsh -c '$HOME/.local/bin/lvim "$FILE"; zsh -i'" & disown
+    latexmk -pvc -pdf -f -interaction=nonstopmode $name.tex 1> /dev/null
+    cd $CURR
   else
     if [ -f "$HOME/Documents/OTIS/texfiles/$name/$name.tex" ];
     then

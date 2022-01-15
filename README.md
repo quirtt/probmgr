@@ -1,5 +1,10 @@
-This project has these main objectives:
+# Main objectives:
 	
-	1) latextmp.sh: This script has to create a temporary environment for editing texfiles containing all needful files(Images, asy, etc) with it.
+## latextmp.sh
+  Script aimed at creating a temporary environment for editing texfiles with the access of all needful files[images, asy, etc.] with it.
 
-	2) group.sh: This scripts has to group all the needed tex files into something(most probably a handout of some sort).
+## group.sh
+	Script aimed at grouping tex files into a handout.
+
+### Note
+badly documented code for personal purposes.
